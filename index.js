@@ -10,18 +10,17 @@ app.use(cors())
 
 
 app.get('/', (req, res) => {
-    res.send('hello world')
+    res.send('Connected')
 })
-app.use('/api', apiRoutes)
 
-// mongoose.connect(process.env.MONGO_URI)
-// .then((res) => {
-//     console.log('mongodb connected')
-//     app.use('/api', apiRoutes)
-// })
-// .catch((err) => {
-//     console.log('err in mongo connection', err)
-// })
+mongoose.connect(process.env.MONGO_URI)
+.then((res) => {
+    console.log('mongodb connected')
+    app.use('/api', apiRoutes)
+})
+.catch((err) => {
+    console.log('err in mongo connection', err)
+})
 
 
 app.listen(process.env.PORT, () => console.log(`running on port ${process.env.PORT}`))
